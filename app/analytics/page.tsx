@@ -31,30 +31,30 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="border-b bg-card">
         <div className="container mx-auto px-6 py-6">
-          <div className="relative flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             {/* Back */}
-            <Link href="/">
+            <Link href="/" className="order-1 sm:order-none">
               <Button variant="ghost" size="sm" className="flex items-center gap-2">
                 <ArrowLeft className="h-4 w-4" />
-                Back to Dashboard
+                <span className="sm:inline">Back to Dashboard</span>
               </Button>
             </Link>
 
             {/* Heading */}
-            <div className="absolute left-1/2 -translate-x-1/2 text-center">
-              <h1 className="text-3xl font-bold flex items-center gap-3 justify-center">
+            <div className="text-center order-0 sm:order-none w-full sm:w-auto">
+              <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 justify-center flex-wrap">
                 <BarChart3 className="h-8 w-8" />
                 Analytics Dashboard
               </h1>
-              <p className="text-muted-foreground mt-1 whitespace-nowrap">
-                Comprehensive loan portfolio analysis and performance metrics
+              <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+                Comprehensive loan portfolio analysis
               </p>
             </div>
 
             {/* Export */}
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button variant="outline" className="flex items-center gap-2 w-full sm:w-auto justify-center order-2 sm:order-none">
               <Download className="h-4 w-4" />
-              Export Analytics
+              <span className="sm:inline">Export Analytics</span>
             </Button>
           </div>
         </div>
@@ -75,38 +75,44 @@ export default function AnalyticsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <GaugeChart
-              title="Approval Rate"
-              value={analyticsData.approvalRate}
-              max={100}
-              target={70}
-              subtitle="Target: 70%"
-              color="success"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="bg-card p-4 rounded-lg border">
+              <GaugeChart
+                title="Approval Rate"
+                value={analyticsData.approvalRate}
+                max={100}
+                target={70}
+                subtitle="Target: 70%"
+                color="success"
+              />
+            </div>
             
-            <BulletChart
-              title="Monthly Loan Volume"
-              value={analyticsData.totalLoans / 12}
-              target={10000000}
-              max={15000000}
-              ranges={{
-                poor: 5000000,
-                fair: 8000000,
-                good: 12000000
-              }}
-              unit=""
-              formatValue={(val) => formatCurrency(val, currency)}
-            />
+            <div className="bg-card p-4 rounded-lg border">
+              <BulletChart
+                title="Monthly Loan Volume"
+                value={analyticsData.totalLoans / 12}
+                target={10000000}
+                max={15000000}
+                ranges={{
+                  poor: 5000000,
+                  fair: 8000000,
+                  good: 12000000
+                }}
+                unit=""
+                formatValue={(val) => formatCurrency(val, currency)}
+              />
+            </div>
 
-            <GaugeChart
-              title="Portfolio Growth"
-              value={analyticsData.portfolioGrowth}
-              max={30}
-              target={12}
-              subtitle="Target: 12%"
-              color="success"
-            />
+            <div className="bg-card p-4 rounded-lg border sm:col-span-2 lg:col-span-1">
+              <GaugeChart
+                title="Portfolio Growth"
+                value={analyticsData.portfolioGrowth}
+                max={30}
+                target={12}
+                subtitle="Target: 12%"
+                color="success"
+              />
+            </div>
           </div>
         </div>
 

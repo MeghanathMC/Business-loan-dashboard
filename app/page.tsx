@@ -128,42 +128,44 @@ export default function DashboardPage() {
         </div>
 
         <div className="bg-card border rounded-lg p-6 mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search by business name or industry..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 w-full"
               />
             </div>
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-muted-foreground" />
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Filter by status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Statuses</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="under_review">Under Review</SelectItem>
-                  <SelectItem value="approved">Approved</SelectItem>
-                  <SelectItem value="rejected">Rejected</SelectItem>
-                  <SelectItem value="more_info_needed">More Info Needed</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <div className="flex items-center gap-2 flex-1">
+                <Filter className="h-4 w-4 text-muted-foreground" />
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="under_review">Under Review</SelectItem>
+                    <SelectItem value="approved">Approved</SelectItem>
+                    <SelectItem value="rejected">Rejected</SelectItem>
+                    <SelectItem value="more_info_needed">More Info Needed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <ExportDialog
+                applications={applications}
+                filteredApplications={filteredApplications}
+                filters={{ searchTerm, statusFilter }}
+              >
+                <Button variant="outline" className="flex items-center gap-2 w-full sm:w-auto justify-center">
+                  <Download className="h-4 w-4" />
+                  Export
+                </Button>
+              </ExportDialog>
             </div>
-            <ExportDialog
-              applications={applications}
-              filteredApplications={filteredApplications}
-              filters={{ searchTerm, statusFilter }}
-            >
-              <Button variant="outline" className="flex items-center gap-2">
-                <Download className="h-4 w-4" />
-                Export
-              </Button>
-            </ExportDialog>
           </div>
         </div>
 

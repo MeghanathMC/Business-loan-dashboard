@@ -105,30 +105,28 @@ export default function ApplicationDetailPage() {
       {/* Header */}
       <div className="border-b bg-card">
         <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => router.push('/')}
-                className="flex items-center gap-2"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Back to Dashboard
-              </Button>
-              <div>
-                <h1 className="text-3xl font-bold flex items-center gap-3 flex-wrap">
-                  <CompanyLogo 
-                    code={getCompanyCodeFromName(application.applicant?.business_name || '')} 
-                    size={32}
-                  />
-                  <span className="break-words">{application.applicant?.business_name}</span>
-                </h1>
-                <p className="text-muted-foreground mt-1">
-                  Application ID: {application.id} • Submitted{' '}
-                  {new Date(application.submission_date).toLocaleDateString()}
-                </p>
-              </div>
+          <div className="flex flex-col gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push('/')}
+              className="flex items-center gap-2 w-fit"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Dashboard
+            </Button>
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 flex-wrap">
+                <CompanyLogo 
+                  code={getCompanyCodeFromName(application.applicant?.business_name || '')} 
+                  size={32}
+                />
+                <span className="break-words">{application.applicant?.business_name}</span>
+              </h1>
+              <p className="text-muted-foreground mt-1 text-sm sm:text-base">
+                Application ID: {application.id} • Submitted{' '}
+                {new Date(application.submission_date).toLocaleDateString()}
+              </p>
             </div>
           </div>
         </div>
@@ -137,41 +135,59 @@ export default function ApplicationDetailPage() {
       {/* Content */}
       <div className="container mx-auto px-6 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-3">
+          <TabsList className="grid w-full max-w-md grid-cols-1 sm:grid-cols-3 gap-2">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="financial">Financial Analysis</TabsTrigger>
             <TabsTrigger value="criteria">Customize Criteria</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="space-y-6">
-            <ApplicantDetails application={application} />
+          <TabsContent value="overview" className="space-y-4 sm:space-y-6">
+            <div className="bg-card rounded-lg border p-4 sm:p-6">
+              <ApplicantDetails application={application} />
+            </div>
 
-            <MetricsOverview metrics={application.financial_metrics} />
+            <div className="bg-card rounded-lg border p-4 sm:p-6">
+              <MetricsOverview metrics={application.financial_metrics} />
+            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <EligibilityScore result={eligibilityResult} />
-              <ActionPanel
-                application={application}
-                onApprove={handleApprove}
-                onReject={handleReject}
-                onRequestInfo={handleRequestInfo}
-              />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              <div className="bg-card rounded-lg border p-4 sm:p-6">
+                <EligibilityScore result={eligibilityResult} />
+              </div>
+              <div className="bg-card rounded-lg border p-4 sm:p-6">
+                <ActionPanel
+                  application={application}
+                  onApprove={handleApprove}
+                  onReject={handleReject}
+                  onRequestInfo={handleRequestInfo}
+                />
+              </div>
             </div>
 
             {application.risk_alerts && application.risk_alerts.length > 0 && (
-              <RiskAlerts alerts={application.risk_alerts} />
+              <div className="bg-card rounded-lg border p-4 sm:p-6">
+                <RiskAlerts alerts={application.risk_alerts} />
+              </div>
             )}
           </TabsContent>
 
-          <TabsContent value="financial" className="space-y-6">
-            <MetricsOverview metrics={application.financial_metrics} />
-            <FinancialCharts metrics={application.financial_metrics} />
+          <TabsContent value="financial" className="space-y-4 sm:space-y-6">
+            <div className="bg-card rounded-lg border p-4 sm:p-6">
+              <MetricsOverview metrics={application.financial_metrics} />
+            </div>
+            <div className="bg-card rounded-lg border p-4 sm:p-6">
+              <FinancialCharts metrics={application.financial_metrics} />
+            </div>
           </TabsContent>
 
-          <TabsContent value="criteria" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <CriteriaCustomizer criteria={criteria} onUpdate={handleCriteriaUpdate} />
-              <EligibilityScore result={eligibilityResult} />
+          <TabsContent value="criteria" className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              <div className="bg-card rounded-lg border p-4 sm:p-6">
+                <CriteriaCustomizer criteria={criteria} onUpdate={handleCriteriaUpdate} />
+              </div>
+              <div className="bg-card rounded-lg border p-4 sm:p-6">
+                <EligibilityScore result={eligibilityResult} />
+              </div>
             </div>
           </TabsContent>
         </Tabs>
