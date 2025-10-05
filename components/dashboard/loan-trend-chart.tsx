@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Calendar, Download, Filter, MoreHorizontal, RefreshCw, Share2 } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
-import { formatCurrency } from '@/lib/currency-utils';
+import { formatCurrency, formatCurrencyCompact } from '@/lib/currency-utils';
 import { useCurrency } from '@/lib/settings-context';
 
 // Loan volume trend data
@@ -184,7 +184,7 @@ export default function LoanTrendChart() {
               axisLine={false}
               tickLine={false}
               tick={{ fontSize: 11, fill: 'var(--text-muted-foreground)' }}
-              tickFormatter={(value) => formatCurrency(value, currency, { compact: true })}
+              tickFormatter={(value) => formatCurrencyCompact(value, currency)}
               domain={['auto', 'auto']}
               tickMargin={10}
             />

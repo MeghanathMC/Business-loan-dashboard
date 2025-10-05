@@ -203,7 +203,7 @@ function ChartTooltipContent({
               ) : (
                 <>
                   {(itemConfig as any)?.icon ? (
-                    <((itemConfig as any).icon) />
+                    React.createElement((itemConfig as any).icon)
                   ) : (
                     !hideIndicator && (
                       <div
@@ -293,7 +293,7 @@ function ChartLegendContent({
             )}
           >
             {(itemConfig as any)?.icon && !hideIcon ? (
-              <((itemConfig as any).icon) />
+              React.createElement((itemConfig as any).icon)
             ) : (
               <div
                 className="h-2 w-2 shrink-0 rounded-[2px]"

@@ -3,6 +3,7 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/lib/currency-utils';
+import { CurrencySettings, AVAILABLE_CURRENCIES } from '@/lib/settings-types';
 import { cn } from '@/lib/utils';
 import { Users, Clock, ClipboardList, CheckCircle } from 'lucide-react';
 
@@ -13,7 +14,7 @@ interface StatusCardProps {
   value: number | string;
   variant?: StatusCardVariant;
   isCurrency?: boolean;
-  currency?: string;
+  currency?: CurrencySettings;
   badge?: string | number;
   subtitle?: string;
   subtitleValue?: string | number;
@@ -60,7 +61,7 @@ export function StatusCard({
   value,
   variant = 'default',
   isCurrency = false,
-  currency = '$',
+  currency = AVAILABLE_CURRENCIES[0], // USD
   badge,
   subtitle,
   subtitleValue,
